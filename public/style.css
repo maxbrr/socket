@@ -1,0 +1,16 @@
+body {
+  background-color: green;
+}
+
+#messageWindow {
+  width: 300px;
+  min-height: 150px;
+  background-color: rgb(113, 216, 113);}
+
+#messageInput {
+
+}
+
+#sendBtn {
+
+}

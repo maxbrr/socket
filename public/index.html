@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Websocket Client 1</title>
+</head>
+<body>
+  <ul id="messageWindow">
+    <!-- messages are attached to this list -->
+  </ul>
+  <input type="text" id="messageInput">
+  <button id="sendBtn">SEND</button>
+</body>
+<script>
+  // create websocket connection
+  // const socket = new WebSocket("ws://192.168.2.102:8080");
+  const socket = new WebSocket("ws://localhost:8080");
+  // connection is openend
+  socket.addEventListener("open", (event) => {
+    console.log("connected to WebsocketServer");
+  });
+  // listen for messages from the server
+  socket.addEventListener("message", (event) => {
+    console.log(event.data)
+    // display the messages in the mesage-window
+    const messageListItem = document.createElement("li");
+    messageListItem.innerHTML = event.data;
+    document.getElementById("messageWindow").appendChild(messageListItem);
+  });
+  // send messages to the server
+  const sendMessage = () => {
+    const message = document.getElementById("messageInput").value;
+    document.getElementById("messageInput").value = "";
+    socket.send(message);
+  }
+  // bind sendMessage() to button
+  document.getElementById("sendBtn").addEventListener("click", () => {
+    sendMessage();
+  });
+</script>
+</html>
